@@ -5,14 +5,23 @@ import logging
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters
 
 from config import BOT_TOKEN
-from bot_handlers import (
-    start_command, main_menu_callback, quran_search_callback,
-    quran_translation_callback, hadith_search_callback,
-    hadith_collection_callback, prayer_country_callback,
-    dictionary_search_callback, dictionary_type_callback,
-    help_command, handle_quran_search, handle_hadith_search,
-    handle_dictionary_search, handle_quick_search
+from handlers.main_menu import (
+    start_command, main_menu_callback, help_command,
+    prayer_country_callback, handle_quick_search
 )
+from handlers.quran_handlers import (
+    quran_search_callback, quran_translation_callback,
+    handle_quran_search
+)
+from handlers.hadith_handlers import (
+    hadith_search_callback, hadith_collection_callback,
+    handle_hadith_search
+)
+from handlers.dictionary_handlers import (
+    dictionary_search_callback, dictionary_type_callback,
+    handle_dictionary_search
+)
+from handlers.prayer_handlers import prayer_command
 
 # Configure logging
 logging.basicConfig(
@@ -51,6 +60,7 @@ def main():
     application.add_handler(CommandHandler("search", lambda u, c: quran_search_callback(u, c)))
     application.add_handler(CommandHandler("hadith", lambda u, c: hadith_search_callback(u, c)))
     application.add_handler(CommandHandler("dictionary", lambda u, c: dictionary_search_callback(u, c)))
+    application.add_handler(CommandHandler("prayer", prayer_command))
     
     # ========== CALLBACK QUERY HANDLERS ==========
     # Main menu
@@ -73,7 +83,7 @@ def main():
     application.add_handler(CallbackQueryHandler(dictionary_search_callback, pattern=r'^dict_search_'))
     application.add_handler(CallbackQueryHandler(dictionary_type_callback, pattern=r'^dicttype_'))
     
-    # Other menu callbacks (simplified)
+    # Other menu callbacks
     application.add_handler(CallbackQueryHandler(main_menu_callback, pattern=r'^quran_'))
     application.add_handler(CallbackQueryHandler(main_menu_callback, pattern=r'^hadith_'))
     application.add_handler(CallbackQueryHandler(main_menu_callback, pattern=r'^dict_'))
