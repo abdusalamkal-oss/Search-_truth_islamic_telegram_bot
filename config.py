@@ -3,7 +3,7 @@ Configuration file for SearchTruth Telegram Bot
 """
 
 # Bot Configuration
-BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"  # Replace with your bot token from @BotFather
+BOT_TOKEN = "8588204814:AAH61_MWfyjBgTkm1QcXobsxQgGJPI7IfOw"  # Replace with your bot token from @BotFather
 
 # API Configuration
 REQUEST_TIMEOUT = 10
